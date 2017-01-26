@@ -1,0 +1,23 @@
+{
+  "name": "tag-shell",
+  "version": "0.1.0",
+  "description": "Tag shell",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/paulmillr/tag-shell.git"
+  },
+  "keywords": [
+    "tag",
+    "shell"
+  ],
+  "author": "Alexey Shvaika, Paul Miller (paulmillr.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paulmillr/tag-shell/issues"
+  },
+  "homepage": "https://github.com/paulmillr/tag-shell#readme"
+}

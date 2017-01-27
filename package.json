@@ -1,7 +1,7 @@
 {
   "name": "tag-shell",
   "version": "0.1.0",
-  "description": "Tag shell",
+  "description": "Use ES6 template tags for your node.js shell commands.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,6 +1,6 @@
 # tag-shell
 
-Safe shell commands.
+Use ES6 template tags for your node.js shell commands.
 
 ```javascript
 const sh = require('tag-shell');

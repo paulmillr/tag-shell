@@ -1,34 +1,46 @@
 'use strict';
-const tag = (spawn, options) => function(arg) {
-  if (!Array.isArray(arg)) return tag(spawn, arg);
+const cp = require('child_process');
+const isTemplateObj = obj => {
+  return Array.isArray(obj) && Array.isArray(obj.raw);
+};
+
+const tag = (fn, options) => function(first) {
+  if (!isTemplateObj(first)) {
+    return tag(fn, Object.assign({}, options, first));
+  }
 
   const args = [];
 
-  arg.forEach((string, index) => {
+  first.forEach((string, index) => {
     string.split(/\s+/).forEach(arg => {
       if (arg) args.push(arg);
     });
 
     const arg = arguments[index + 1];
-    if (arg != null) args.push(arg);
+    if (arg == null) return;
+
+    args.push(/\S$/.test(string)
+      ? args.pop() + arg
+      : arg
+    );
   });
 
   const cmd = args.shift();
 
-  return spawn(cmd, args, options);
+  return fn(cmd, args, options);
 };
 
-const sync = function() {
-  const proc = cp.spawnSync.apply(cp, arguments);
-  if (proc.error) throw proc.error;
-  if (proc.status) throw new Error(`${proc.stderr}`.trim());
-
-  return `${proc.stdout}`.trim();
+const promise = function() {
+  return new Promise((resolve, reject) => {
+    const proc = cp.spawn.apply(cp, arguments);
+    proc.on('exit', code => {
+      if (code) reject(code)
+      else resolve()
+    });
+  });
 };
 
-const cp = require('child_process');
-const sh = tag(sync);
-sh.sync = sh;
-sh.async = tag(cp.spawn);
+const sh = tag(promise);
+sh.tag = tag;
 
 module.exports = sh;

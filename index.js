@@ -4,7 +4,7 @@ const isTemplateObj = obj => {
   return Array.isArray(obj) && Array.isArray(obj.raw);
 };
 
-const tag = (fn, options) => function(first) {
+const makeTag = (fn, options) => function(first) {
   if (!isTemplateObj(first)) {
     return tag(fn, Object.assign({}, options, first));
   }
@@ -40,7 +40,7 @@ const promise = function() {
   });
 };
 
-const sh = tag(promise);
-sh.tag = tag;
+const sh = makeTag(promise);
+sh.makeTag = makeTag;
 
 module.exports = sh;

@@ -1,11 +1,7 @@
 'use strict';
 const cp = require('child_process');
-const isTemplateObj = obj => {
-  return Array.isArray(obj) && Array.isArray(obj.raw);
-};
-
 const makeTag = (fn, options) => function(first) {
-  if (!isTemplateObj(first)) {
+  if (!Array.isArray(first)) {
     return tag(fn, Object.assign({}, options, first));
   }
 

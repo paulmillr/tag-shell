@@ -36,7 +36,16 @@ const promise = function() {
   });
 };
 
+const sync = (args, options) => {
+  const proc = cp.spawnSync(args.shift(), args, options);
+  if (proc.error) throw proc.error;
+  if (proc.status) throw new Error(`${proc.stderr}`.trim());
+
+  return `${proc.stdout}`.trim();
+};
+
 const sh = makeTag(promise);
+sh.sync = makeTag(sync);
 sh.makeTag = makeTag;
 
 module.exports = sh;

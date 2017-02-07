@@ -21,18 +21,23 @@ const makeTag = (fn, options) => function(first) {
     );
   });
 
-  const cmd = args.shift();
-
-  return fn(cmd, args, options);
+  return fn(args, options);
 };
 
-const promise = function() {
+const promise = (args, options) => {
+  let out = '';
+  let err = '';
+
   return new Promise((resolve, reject) => {
-    const proc = cp.spawn.apply(cp, arguments);
+    const proc = cp.spawn(args.shift(), args, options);
+
     proc.on('exit', code => {
-      if (code) reject(code)
-      else resolve()
+      if (code) reject(err.trim());
+      else resolve(out.trim());
     });
+
+    proc.stdout.on('data', data => out += data);
+    proc.stderr.on('data', data => err += data);
   });
 };
 

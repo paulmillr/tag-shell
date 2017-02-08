@@ -2,8 +2,13 @@
 const tagShell = require('.');
 
 describe('tag-shell', () => {
-  tagShell.should.be.a('function');
-  tagShell.should.itself.respondTo('makeTag');
+  it('is a function', () => {
+    tagShell.should.be.a('function');
+  });
+
+  it('has `makeTag` method', () => {
+    tagShell.should.itself.respondTo('makeTag');
+  });
 
   describe('parses arguments correctly', () => {
     const sh = tagShell.makeTag(args => args);
@@ -31,6 +36,7 @@ describe('tag-shell', () => {
       sh`param=${''}`.should.eql(['param=']);
       sh`param=${'value'} --bool`.should.eql(['param=value', '--bool']);
       sh`param=${'with space'} --bool`.should.eql(['param=with space', '--bool']);
+      sh`colon:${'new\nline'} --bool`.should.eql(['colon:new\nline', '--bool']);
     });
 
     it(`doesn't coerce substs to strings`, () => {

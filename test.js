@@ -33,9 +33,9 @@ describe('tag-shell', () => {
     });
 
     it(`appends subst to last arg if literal doesn't end with space`, () => {
-      sh`param=${''}`.should.eql(['param=']);
-      sh`param=${'value'} --bool`.should.eql(['param=value', '--bool']);
-      sh`param=${'with space'} --bool`.should.eql(['param=with space', '--bool']);
+      sh`eq=${''}`.should.eql(['eq=']);
+      sh`eq=${'value'} --bool`.should.eql(['eq=value', '--bool']);
+      sh`eq=${'with space'} --bool`.should.eql(['eq=with space', '--bool']);
       sh`colon:${'new\nline'} --bool`.should.eql(['colon:new\nline', '--bool']);
     });
 

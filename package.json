@@ -4,7 +4,7 @@
   "description": "Use ES6 template tags for your node.js shell commands.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r chai/register-should"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/paulmillr/tag-shell/issues"
   },
-  "homepage": "https://github.com/paulmillr/tag-shell#readme"
+  "homepage": "https://github.com/paulmillr/tag-shell#readme",
+  "devDependencies": {
+    "chai": "chaijs/chai",
+    "mocha": "^3.2.0"
+  }
 }
